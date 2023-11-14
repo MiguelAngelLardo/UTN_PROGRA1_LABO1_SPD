@@ -35,7 +35,6 @@ d. Informar para cada vendedor cual es el número de cliente que le haya realiz
 
 e. Informar cual fue la recaudación total de la empresa por cada bimestre del año, teniendo solamente en cuenta las ventas de pasajes de vuelos de más de 500 millas.
 
-nformar cual fue la recaudación total de la empresa por cada bimestre del año, teniendo solamente en cuenta las ventas de pasajes de vuelos de más de 500 millas.
 
 | Bimestre | Recaudación Total en Pesos |
 |          |                            |
