@@ -11,8 +11,11 @@ struct Empleado{
 };
 
 void carga(vector<Empleado> &);
-void proceso (vector<Empleado> &, int [], int []);
-void FuncionPTA (vector<Empleado> &, int [], int [], int, int, int);
+void proceso (vector<Empleado> &, int [], int [], float [], int []);
+void funcionPTA (vector<Empleado> &, int [], int [], int, int, int);
+void mostrarPTA (vector<Empleado> &, int [], int []);
+void funcionPTOB(vector<Empleado> &, float [], int [], int , int , int , float );
+void mostrarPTOB(vector<Empleado> &, float [], int []);
 
 int main()
 {
@@ -22,8 +25,12 @@ int main()
   //en tiempo de ejecucion no puedo modificar ARRAY por eso uso VECTOR y ese tamaño DINAMICO lo asigno a CONSTANTE
   const int MAX_EMPLEADO = empleados1.size();
   int empleadoDia[MAX_EMPLEADO] = {}, empleadoHoras [MAX_EMPLEADO]= {};//PTA
+  float totalCobrar[MAX_EMPLEADO] = {}; //PTOB
+  int contadorDias[MAX_EMPLEADO] = {};//PTOB
 
-  proceso (empleados1, empleadoDia, empleadoHoras);
+  proceso (empleados1, empleadoDia, empleadoHoras, totalCobrar, contadorDias);
+  mostrarPTA (empleados1, empleadoDia, empleadoHoras);
+  mostrarPTOB(empleados1, totalCobrar, contadorDias);
 
   return 0;
 }
@@ -47,7 +54,7 @@ void carga(vector<Empleado> &empleados){
   }
 }
 
-void proceso (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHoras []){
+void proceso (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHoras [], float totalCobrar[], int contadorDias []){
   int dia, nroEmpleado, horasTrabajadas;
   float jornal;
 
@@ -62,7 +69,8 @@ void proceso (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHora
     cout << "Ingrese el jornal cobrado en el dia: ";
     cin >> jornal;  
 
-    FuncionPTA (empleados1, empleadoDia, empleadoHoras, nroEmpleado, horasTrabajadas, dia);
+    funcionPTA (empleados1, empleadoDia, empleadoHoras, nroEmpleado, horasTrabajadas, dia);
+    funcionPTOB(empleados1, totalCobrar, contadorDias, dia, nroEmpleado, horasTrabajadas, jornal);
 
     cout << "Ingrese el dia (1 a 31): ";
     cin >> dia;
@@ -71,7 +79,7 @@ void proceso (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHora
   }
 }
 
-void FuncionPTA (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHoras [], int nroEmpleado, int horasTrabajadas, int dia){
+void funcionPTA (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHoras [], int nroEmpleado, int horasTrabajadas, int dia){
   for(int i = 0; i < empleados1.size(); i ++){
     if(empleados1[i].nroEmpleado == nroEmpleado)
     {
@@ -83,3 +91,28 @@ void FuncionPTA (vector<Empleado> &empleados1, int empleadoDia [], int empleadoH
     }
   }
 }
+
+void mostrarPTA (vector<Empleado> &empleados1, int empleadoDia [], int empleadoHoras []){
+  for(int x = 0; x < empleados1.size(); x ++){
+    cout << "EMPLEADO: " << empleados1[x].nroEmpleado << " | DIA que mas trabajo es: " << empleadoDia [x] << " | Fueron HS: " << empleadoHoras [x] << endl;
+  }
+}
+
+void funcionPTOB(vector<Empleado> &empleados1, float totalCobrar[], int contadorDias [], int dia, int nroEmpleado, int horasTrabajadas, float jornal){
+  for(int i = 0; i < empleados1.size(); i ++){
+    if(nroEmpleado == empleados1[i].nroEmpleado){
+      totalCobrar[i] += jornal * horasTrabajadas;
+      contadorDias[i] += (dia >=1 && dia <= 31) ? 1 : 0;
+    }
+  }
+}
+  
+void mostrarPTOB(vector<Empleado> &empleados1, float totalCobrar[], int contadorDias []){
+  for(int i = 0; i < empleados1.size(); i ++){
+    if(contadorDias[i] >= 20){
+      totalCobrar[i] += 200;
+    }
+    cout << "EMPLEADO: " << empleados1[i].nroEmpleado << endl;
+    cout << "TOTAL A COBRAR: " << totalCobrar[i] << endl;
+  }      
+}  
