@@ -1,15 +1,17 @@
 #include <iostream>
 using namespace std;
 
+const int GRUPOS = 10;
+
 int main() 
 {
 
-  for(int x = 0; x < 4; x ++)
+  for(int x = 0; x < GRUPOS; x ++)
   { 
     int n, numeroAnterior, contPrimoPorGrupo = 0, minimoPar, posicion1 = 0, posicion2 = 0;
     bool banderaMinimoPar = false, banderaAnteUltimoUltimo = false;
 
-    cout << "Ingrese un numero: ";
+    cout << "Ingrese un numero(CAMBIO EL GRUPO CON N MENOR AL ANTERIOR): ";
     cin >> n;
     numeroAnterior = n;
     while (n >= numeroAnterior)
@@ -45,12 +47,12 @@ int main()
           posicion2 = posicion1;
           banderaAnteUltimoUltimo = true;
         }else{
-          posicion2 = posicion1;
-          posicion1 = n;
+          posicion2 = posicion1; // ante ultima posicion
+          posicion1 = n; //ultima posicion
         }
       }
 
-      cout << "Ingrese un numero while: ";
+      cout << "Ingrese un numero (while): ";
       cin >> n;
       if(n > numeroAnterior)
        numeroAnterior = n;
