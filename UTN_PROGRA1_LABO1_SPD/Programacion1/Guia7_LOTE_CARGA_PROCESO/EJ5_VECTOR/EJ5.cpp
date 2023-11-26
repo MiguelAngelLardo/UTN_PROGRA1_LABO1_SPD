@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector> //STL, Standard Template Library
-#include "funciones.h"
-#include "estructuras.h"
+
 using namespace std;
 
 struct Empleado{
@@ -16,6 +15,7 @@ void funcionPTA (vector<Empleado> &, int [], int [], int, int, int);
 void mostrarPTA (vector<Empleado> &, int [], int []);
 void funcionPTOB(vector<Empleado> &, float [], int [], int , int , int , float );
 void mostrarPTOB(vector<Empleado> &, float [], int []);
+void mostrarPTOC(vector<Empleado> &, float []);
 
 int main()
 {
@@ -31,6 +31,7 @@ int main()
   proceso (empleados1, empleadoDia, empleadoHoras, totalCobrar, contadorDias);
   mostrarPTA (empleados1, empleadoDia, empleadoHoras);
   mostrarPTOB(empleados1, totalCobrar, contadorDias);
+  mostrarPTOC(empleados1, totalCobrar);
 
   return 0;
 }
@@ -41,7 +42,7 @@ void carga(vector<Empleado> &empleados){
 
     cout << i+1 << ") Ingrese el nro de empleado (digitios no correlativos): ";
     cin >> empleados[i].nroEmpleado;
-    cout << i+1 << ")Ingrese la categoria (1 a 20)(CORTA CON CERO): ";
+    cout << i+1 << ") Ingrese la categoria (1 a 20)(CORTA CON CERO): ";
     cin >> empleados[i].categoria;
     cout <<  i+1 << ") Antiguedad: ";
     cin >> empleados[i].antiguedad;
@@ -116,3 +117,16 @@ void mostrarPTOB(vector<Empleado> &empleados1, float totalCobrar[], int contador
     cout << "TOTAL A COBRAR: " << totalCobrar[i] << endl;
   }      
 }  
+
+void mostrarPTOC(vector<Empleado> &empleados1, float totalCobrar[]){
+  float maxSueldo = totalCobrar[0];
+  int maxIndice = 0;
+  for(int i = 1; i < empleados1.size(); i ++){
+    if(totalCobrar[i] > maxSueldo){
+      maxSueldo = totalCobrar[i];
+      maxIndice = i;
+    }
+  }
+
+  cout << "NUMERO CATEGORIA CON MAYOR SUELDO: " << empleados1[maxIndice].categoria << endl;
+}
